@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: spring-boot-consul-demo
+  cloud:
+    consul:
+      host: ${CONSUL_SERVER:localhost}
+      port: 8500
+      config:
+        fail-fast: true
+        format: FILES

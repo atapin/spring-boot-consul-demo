@@ -1,0 +1,66 @@
+buildscript {
+    ext.kotlin_version =
+    ext {
+        versions = [
+            kotlin: '1.1.3-2',
+            springBoot: '1.5.6.RELEASE',
+            springDepMan: '0.5.6.RELEASE'
+        ]
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${versions.springBoot}")
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:${versions.kotlin}"
+        classpath "io.spring.gradle:dependency-management-plugin:${versions.sprindDepMan}"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'io.spring.dependency-management'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-consul-dependencies:1.2.1.RELEASE"
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:${versions.kotlin}"
+    compile('org.springframework.boot:spring-boot-starter')
+    compile('org.springframework.cloud:spring-cloud-starter-consul-all')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+springBoot {
+    mainClass = "com.andreyatapin.demo.AppKt"
+}
+
+bootRun {
+    systemProperties(System.properties)
+}

@@ -1,0 +1,3 @@
+settings:
+  str: 'Local string'
+  int: 2

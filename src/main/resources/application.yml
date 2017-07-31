@@ -1,0 +1,5 @@
+debug: true
+
+settings:
+  str: 'Default string'
+  int: 1
